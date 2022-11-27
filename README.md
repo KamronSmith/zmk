@@ -1,4 +1,13 @@
-# Zephyr™ Mechanical Keyboard (ZMK) Firmware
+# [Y]et [A]nother [C]ustom [K]ey Board
+
+## Experimental Fork of the ZMK Project
+
+This is an experimental fork - it is not guaranteed to be functional. The original source of the ZMK project is
+[here](https://www.github.com/zmkfirmware/zmk).
+
+The following is the original README
+
+## Zephyr™ Mechanical Keyboard (ZMK) Firmware
 
 [![Discord](https://img.shields.io/discord/719497620560543766)](https://zmk.dev/community/discord/invite)
 [![Build](https://github.com/zmkfirmware/zmk/workflows/Build/badge.svg)](https://github.com/zmkfirmware/zmk/actions)
