@@ -1,17 +1,11 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 
-#define L_DEF      0 // default layer
-#define L_NAV      1 // navigation layer
-#define L_NAVP     2 // navigation layer (identical but a duplicate with its own number)
-#define L_NUM      3 // number and symbols layer
-#define L_NUMP     4 // number and symbols layer (identical but a duplicate with its own number)
-#define L_FUN      5 // function key layer
-#define L_FUNP     6 // function key layer (identical but a duplicate with its own number)
-#define L_BLE      7 // secret layer for bluetooth configuration
-#define L_ONE_SHF  8 // special layer that modifies only the shift key
-#define L_ONE_NAV  9 // special layer that modifies only the navigation layer key
-#define L_ONE_NUM 10 // special layer that modifies only the number layer key
-#define L_ONE_FUN 11 // special layer that modifies only the function layer key
+#define L_DEF 0 // default layer
+#define L_NAV 1 // navigation layer
+#define L_NUM 2 // number and symbols layer
+#define L_FUN 3 // function key layer
+#define L_BLE 4 // secret layer for bluetooth configuration
+#define L_SHF 5 // special layer that modifies only the shift key
 
 / {
   chosen {
