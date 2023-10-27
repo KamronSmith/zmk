@@ -109,7 +109,7 @@
 
 / {
   behaviors {
-    ht: hold_tap_general { // the central thumb key on the right half serves as shift when held down
+    ht: hold_tap_general {
       compatible = "zmk,behavior-hold-tap";
       label = "HOLD_TAP_GENERAL";
       #binding-cells = <2>;
@@ -160,6 +160,72 @@
   };
 };
 
+// The diacritics on the navigation and punctuation layer are non-dead. This is implemented by sending a sequence of
+// first the diacritic and then a spcace.
+//
+// ???
+// Note that the degree ° and the slash / are non-dead by default, but I might want to program a dead version, too.
+// Add a new hold-tap layer switch for a new layer L_DEAD that produces the dead versions of the following keys.
+// Also add the symbols of the US international layout to that layer.
+
+/ {
+  macros {
+    nd_grave: non_dead_grave { // non-dead version of the grave accent
+      label = "NON_DEAD_GRAVE";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_tap &kp GRAVE &kp SPACE>;
+    };
+    nd_apos: non_dead_apostrophe { // non-dead version of the apostrophe (which otherwise plays the role of the acute accent)
+      label = "NON_DEAD_APOSTROPHE";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_tap &kp APOS &kp SPACE>;
+    };
+    nd_dqt: non_dead_doublequote { // non-dead version of the double quote
+      label = "NON_DEAD_DOUBLEQUOTE";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_tap &kp DQT &kp SPACE>;
+    };
+    nd_caret: non_dead_caret { // non-dead version of the caret
+      label = "NON_DEAD_CARET";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_tap &kp CARET &kp SPACE>;
+    };
+    nd_tilde: non_dead_tilde { // non-dead version of the tilde
+      label = "NON_DEAD_TILDE";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_tap &kp TILDE &kp SPACE>;
+    };
+  };
+};
+
+// On the number layer, there are hold-tap keys that send some of these non-dead diacritics.
+
+/ {
+  behaviors {
+    ht_apos: hold_tap_apostrophe { // a hold-tap that sends the non-dead apostrophe on hold.
+      compatible = "zmk,behavior-hold-tap";
+      label = "HOLD_TAP_APOSTROPHE";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <200>;
+      bindings = <&nd_apos>, <&kp>;
+    };
+    ht_caret: hold_tap_caret { // a hold-tap that sends the non-dead caret on hold.
+      compatible = "zmk,behavior-hold-tap";
+      label = "HOLD_TAP_CARET";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <200>;
+      bindings = <&nd_caret>, <&kp>;
+    };
+  };
+};
+
 / {
   keymap {
     compatible = "zmk,keymap";
@@ -175,58 +241,65 @@
 //         +-------+-------+-------+-------+-------+       +-------+-------+-------+-------+-------+
 
     default_layer { // #define L_DEF 0
-
-
       bindings = <
-    &none             &none            &kp Z        &kp   O             &kp P           &kp Y          &kp W          &kp C         &kp M         &kp V        &none          &none
-    &lyht L_FUN Q     &lyht L_NAV H    &moht LALT A &moht LCTRL E       &lyht L_NUM I   &moht LWIN U   &moht LWIN D   &lyht L_NUM T &moht LCTRL N &moht LALT S &lyht L_NAV R  &lyht L_FUN X
-    &ltt L_DEF L_NUM  &kp J            &kp RA(P)    &kp   RA(Q)         &kp K           &kp RA(Y)      &kp B          &kp G         &kp L         &kp F        &shsz          &ltt L_DEF L_NUM
-                      &none            &kp ESC      &hold_shift LSHFT A &ht LS(TAB) TAB &none          &none          &kp RET       &kp SPACE     &shbs        &none
+    &none             &none            &kp Z        &kp   O             &kp P           &kp Y          &kp W            &kp C          &kp M         &kp V        &none          &none
+    &lyht L_FUN Q     &lyht L_NAV H    &moht LALT A &moht LCTRL E       &lyht L_NUM I   &moht LWIN U   &moht LWIN D     &lyht L_NUM T  &moht LCTRL N &moht LALT S &lyht L_NAV R  &lyht L_FUN X
+    &ltt L_DEF L_NUM  &kp J            &kp RA(P)    &kp   RA(Q)         &lyht L_DEAD K  &kp RA(Y)      &kp B            &lyht L_DEAD G &kp L         &kp F        &shsz          &ltt L_DEF L_NUM
+                      &none            &kp ESC      &hold_shift LSHFT A &ht LS(TAB) TAB &none          &none            &kp RET        &kp SPACE     &shbs        &none
         >;
     };
 
     navigation_layer { // #define L_NAV 1
       bindings = <
-    &none             &none            &kp GRAVE    &kp LS(COMMA)       &kp LS(DOT)     &kp EXCL       &mkp LCLK      &kp HOME      &kp UP        &kp PG_UP    &none          &none
-    &kp CARET         &kp DQT          &kp APOS     &kp COMMA           &kp DOT         &kp QMARK      &mkp MCLK      &kp LEFT      &kp SLCK      &kp RIGHT    &move_beg      &kp INS
-    &ltt L_DEF L_FUN  &kp RA(LS(SEMI)) &kp RA(N9)   &kp SEMI            &kp COLON       &kp UNDER      &mkp RCLK      &kp END       &kp DOWN      &kp PG_DN    &move_end      &ltt L_DEF L_FUN
-                      &trans           &trans       &trans              &trans          &trans         &trans         &trans        &trans        &trans       &none
+    &none             &none            &nd_grave    &kp LS(COMMA)       &kp LS(DOT)     &kp EXCL       &mkp LCLK        &kp HOME       &kp UP        &kp PG_UP    &none          &none
+    &nd_caret         &nd_dqt          &nd_apos     &kp COMMA           &kp DOT         &kp QMARK      &mkp MCLK        &kp LEFT       &kp SLCK      &kp RIGHT    &move_beg      &kp INS
+    &ltt L_DEF L_FUN  &kp RA(LS(SEMI)) &kp RA(N9)   &kp SEMI            &kp COLON       &kp UNDER      &mkp RCLK        &kp END        &kp DOWN      &kp PG_DN    &move_end      &ltt L_DEF L_FUN
+                      &trans           &trans       &trans              &trans          &trans         &trans           &trans         &trans        &trans       &none
       >;
     };
 
     numbers_layer { // #define L_NUM 2
       bindings = <
-    &none             &none            &kp RA(N5)   &kp LBRC            &kp RBRC        &kp PIPE       &ht APOS MINUS &kp N7        &kp N8        &kp N9       &none         &none
-    &kp TILDE         &kp LBKT         &kp RBKT     &kp LPAR            &kp RPAR        &kp BSLH       &kp PLUS       &kp N4        &kp N5        &kp N6       &ht COMMA DOT &kp EQUAL
-    &ltt L_DEF L_NAV  &kp AT           &kp HASH     &kp DLLR            &kp PRCNT       &kp AMPS       &ht CARET STAR &kp N1        &kp N2        &kp N3       &kp SLASH     &ltt L_DEF L_NAV
-                      &trans           &trans       &trans              &trans          &trans         &trans         &trans        &kp N0        &trans       &none
+    &none             &none            &kp RA(N5)   &kp LBRC            &kp RBRC        &kp PIPE       &ht_apos A MINUS &kp N7         &kp N8        &kp N9       &none         &none
+    &nd_tilde         &kp LBKT         &kp RBKT     &kp LPAR            &kp RPAR        &kp BSLH       &kp PLUS         &kp N4         &kp N5        &kp N6       &ht COMMA DOT &kp EQUAL
+    &ltt L_DEF L_NAV  &kp AT           &kp HASH     &kp DLLR            &kp PRCNT       &kp AMPS       &ht_caret A STAR &kp N1         &kp N2        &kp N3       &kp SLASH     &ltt L_DEF L_NAV
+                      &trans           &trans       &trans              &trans          &trans         &trans           &trans         &kp N0        &trans       &none
       >;
     };
 
     functions_layer { // #define L_FUN 3
       bindings = <
-    &none             &none            &none        &none               &none           &kp C_BRI_UP   &kp K_VOL_UP   &kp F7        &kp F8        &kp F9       &none         &none
-    &none             &none            &none        &none               &none           &kp C_BRI_AUTO &kp K_MUTE     &kp F4        &kp F5        &kp F6       &kp F11       &kp F10
-    &ltt L_DEF L_BLE  &none            &none        &none               &none           &kp C_BRI_DN   &kp K_VOL_DN   &kp F1        &kp F2        &kp F3       &kp F12       &ltt L_DEF L_BLE
-                      &trans           &trans       &trans              &trans          &trans         &trans         &trans        &kp SPACE     &trans       &trans
+    &none             &none            &none        &none               &none           &kp C_BRI_UP   &kp K_VOL_UP     &kp F7         &kp F8        &kp F9       &none         &none
+    &none             &none            &none        &none               &none           &kp C_BRI_AUTO &kp K_MUTE       &kp F4         &kp F5        &kp F6       &kp F11       &kp F10
+    &ltt L_DEF L_BLE  &none            &none        &none               &none           &kp C_BRI_DN   &kp K_VOL_DN     &kp F1         &kp F2        &kp F3       &kp F12       &ltt L_DEF L_BLE
+                      &trans           &trans       &trans              &trans          &trans         &trans           &trans         &kp SPACE     &trans       &trans
       >;
     };
 
     secret_layer { // #define L_BLE 4
       bindings = <
-    &none             &none            &none        &none               &none           &none          &none          &none         &none         &none        &none         &none
-    &none             &none            &none        &none               &none           &none          &bt BT_SEL 1   &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4 &bt BT_SEL 5  &none
-    &ltt L_DEF L_DEF  &none            &none        &none               &none           &none          &none          &out OUT_USB  &bt BT_CLR    &out OUT_BLE &none         &ltt L_DEF L_DEF
-                      &trans           &kp ESC      &trans              &trans          &trans         &trans         &trans        &trans        &trans       &trans
+    &none             &none            &none        &none               &none           &none          &none            &none          &none         &none        &none         &none
+    &none             &none            &none        &none               &none           &none          &bt BT_SEL 1     &bt BT_SEL 2   &bt BT_SEL 3  &bt BT_SEL 4 &bt BT_SEL 5  &none
+    &ltt L_DEF L_DEF  &none            &none        &none               &none           &none          &none            &out OUT_USB   &bt BT_CLR    &out OUT_BLE &none         &ltt L_DEF L_DEF
+                      &trans           &kp ESC      &trans              &trans          &trans         &trans           &trans         &trans        &trans       &trans
       >;
     };
 
     one_shift_layer { // #define L_SHF 5
       bindings = <
-    &trans            &trans           &trans       &trans              &trans          &trans         &trans         &trans        &trans        &trans       &trans        &trans
-    &trans            &trans           &trans       &trans              &trans          &trans         &trans         &trans        &trans        &trans       &trans        &trans
-    &trans            &trans           &trans       &trans              &trans          &trans         &trans         &trans        &trans        &trans       &trans        &trans
-                      &trans           &trans       &mycaps             &trans          &trans         &trans         &trans        &trans        &trans       &trans
+    &trans            &trans           &trans       &trans              &trans          &trans         &trans           &trans         &trans        &trans       &trans        &trans
+    &trans            &trans           &trans       &trans              &trans          &trans         &trans           &trans         &trans        &trans       &trans        &trans
+    &trans            &trans           &trans       &trans              &trans          &trans         &trans           &trans         &trans        &trans       &trans        &trans
+                      &trans           &trans       &mycaps             &trans          &trans         &trans           &trans         &trans        &trans       &trans
+      >;
+    };
+
+    dead_key_layer { // #define L_DEAD 6
+      bindings = <
+    &trans            &trans           &kp GRAVE    &trans              &trans          &trans         &trans           &trans         &trans        &trans       &trans        &trans
+    &kp CARET         &kp DQT          &kp APOS     &kp TILDE           &trans          &trans         &trans           &trans         &trans        &trans       &trans        &trans
+    &trans            &trans           &trans       &trans              &trans          &trans         &trans           &trans         &trans        &trans       &trans        &trans
+                      &trans           &trans       &trans              &trans          &trans         &trans           &trans         &trans        &trans       &trans
       >;
     };
   };
