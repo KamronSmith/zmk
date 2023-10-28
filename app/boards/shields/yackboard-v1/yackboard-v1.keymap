@@ -226,6 +226,45 @@
   };
 };
 
+// ??? experimental behaviours
+
+/ {
+  behaviors {
+    ad_z: adaptive_z {
+      compatible = "zmk,behavior-antecedent-morph";
+      label = "ADAPTIVE_Z";
+      #binding-cells = <0>;
+      bindings = <&kp Z>, <&kp O>;
+      max-delay-ms = <250>;
+      antecedents = <E I U>;
+    };
+    ad_j: adaptive_j {
+      compatible = "zmk,behavior-antecedent-morph";
+      label = "ADAPTIVE_J";
+      #binding-cells = <0>;
+      bindings = <&kp J>, <&kp K>;
+      max-delay-ms = <250>;
+      antecedents = <E I U>;
+    };
+    ad_oe: adaptive_oe {
+      compatible = "zmk,behavior-antecedent-morph";
+      label = "ADAPTIVE_OE";
+      #binding-cells = <0>;
+      bindings = <&kp RA(P)>, <&kp I>;
+      max-delay-ms = <250>;
+      antecedents = <E I U>;
+    };
+    ad_ae: adaptive_ae {
+      compatible = "zmk,behavior-antecedent-morph";
+      label = "ADAPTIVE_AE";
+      #binding-cells = <0>;
+      bindings = <&kp RA(Q)>, <&kp P>;
+      max-delay-ms = <250>;
+      antecedents = <E I U>;
+    };
+  };
+};
+
 / {
   keymap {
     compatible = "zmk,keymap";
@@ -242,9 +281,9 @@
 
     default_layer { // #define L_DEF 0
       bindings = <
-    &none             &none            &kp Z        &kp   O             &kp P           &kp Y          &kp W            &kp C          &kp M         &kp V        &none          &none
+    &none             &none            &ad_z        &kp   O             &kp P           &kp Y          &kp W            &kp C          &kp M         &kp V        &none          &none
     &lyht L_FUN Q     &lyht L_NAV H    &moht LALT A &moht LCTRL E       &lyht L_NUM I   &moht LWIN U   &moht LWIN D     &lyht L_NUM T  &moht LCTRL N &moht LALT S &lyht L_NAV R  &lyht L_FUN X
-    &ltt L_DEF L_NUM  &kp J            &kp RA(P)    &kp   RA(Q)         &lyht L_DEAD K  &kp RA(Y)      &kp B            &lyht L_DEAD G &kp L         &kp F        &shsz          &ltt L_DEF L_NUM
+    &ltt L_DEF L_NUM  &ad_j            &ad_oe       &ad_ae              &lyht L_DEAD K  &kp RA(Y)      &kp B            &lyht L_DEAD G &kp L         &kp F        &shsz          &ltt L_DEF L_NUM
                       &none            &kp ESC      &hold_shift LSHFT A &ht LS(TAB) TAB &none          &none            &kp RET        &kp SPACE     &shbs        &none
         >;
     };
