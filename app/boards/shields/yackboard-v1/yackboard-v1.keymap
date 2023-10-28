@@ -4,6 +4,14 @@
 #include <dt-bindings/zmk/bt.h>      // This is required when using &bt bluetooth commands.
 #include <dt-bindings/zmk/outputs.h> // This is required when using the &out output commands.
 
+// The following are illegal keycodes (above 0x00ff) with usage page 0x07. They are automatically
+// removed by the event handler of the "zmk,behavior-antecedent-morph" as soon as one such
+// behavior is defined and so cannot print anything. But they can be used as antecedents in
+// that behavior and modify the subsequent key. For example, the slash can act as a dead key
+// and modify the subsequent o to an ø.
+#define D_SLASH 0x070100
+#define D_CIRQ  0x070101
+
 // This is the key map of the Yackboard v1 with the improved OPY layout.
 
 // The dedicated shift key has got the following behaviour:
@@ -78,7 +86,47 @@
       quick-tap-ms = <200>;
       bindings = <&kp>, <&kp>;
     };
-    lyht: layer_hold_tap { // the home row layer keys for the number layer use the following specialization of &ht.
+    mohta: modifier_hold_tapa { // the home row modifier for adaptive A
+      compatible = "zmk,behavior-hold-tap";
+      label = "MODIFIER_HOLD_TAPA";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <400>;
+      retro-tap;
+      quick-tap-ms = <200>;
+      bindings = <&kp>, <&ad_a>;
+    };
+    mohtu: modifier_hold_tapu { // the home row modifier for adaptive U
+      compatible = "zmk,behavior-hold-tap";
+      label = "MODIFIER_HOLD_TAPU";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <400>;
+      retro-tap;
+      quick-tap-ms = <200>;
+      bindings = <&kp>, <&ad_u>;
+    };
+    mohtd: modifier_hold_tapd { // the home row modifier for adaptive D
+      compatible = "zmk,behavior-hold-tap";
+      label = "MODIFIER_HOLD_TAPD";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <400>;
+      retro-tap;
+      quick-tap-ms = <200>;
+      bindings = <&kp>, <&ad_d>;
+    };
+    mohtn: modifier_hold_tapn { // the home row modifier for adaptive N
+      compatible = "zmk,behavior-hold-tap";
+      label = "MODIFIER_HOLD_TAPN";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <400>;
+      retro-tap;
+      quick-tap-ms = <200>;
+      bindings = <&kp>, <&ad_n>;
+    };
+    lyht: layer_hold_tap { // the home row layer keys for use the following specialization of &ht.
       compatible = "zmk,behavior-hold-tap";
       label = "LAYER_HOLD_TAP";
       #binding-cells = <2>;
@@ -87,6 +135,36 @@
       retro-tap;
       quick-tap-ms = <250>;
       bindings = <&mo>, <&kp>;
+    };
+    lyhth: layer_hold_taph { // the home row layer key for adaptive H
+      compatible = "zmk,behavior-hold-tap";
+      label = "LAYER_HOLD_TAPH";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <400>;
+      retro-tap;
+      quick-tap-ms = <250>;
+      bindings = <&mo>, <&ad_h>;
+    };
+    lyhtx: layer_hold_tapx { // the home row layer key for adaptive X
+      compatible = "zmk,behavior-hold-tap";
+      label = "LAYER_HOLD_TAPX";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <400>;
+      retro-tap;
+      quick-tap-ms = <250>;
+      bindings = <&mo>, <&ad_x>;
+    };
+    lyhtg: layer_hold_tapg { // the home row layer key for adaptive G
+      compatible = "zmk,behavior-hold-tap";
+      label = "LAYER_HOLD_TAPG";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <400>;
+      retro-tap;
+      quick-tap-ms = <250>;
+      bindings = <&mo>, <&ad_g>;
     };
   };
 };
@@ -226,41 +304,104 @@
   };
 };
 
-// ??? experimental behaviours
+// Adaptive keys (fast, 250 ms) in order to avoid same finger bigrams.
 
 / {
   behaviors {
-    ad_z: adaptive_z {
+    ad_m: adaptive_m {
       compatible = "zmk,behavior-antecedent-morph";
-      label = "ADAPTIVE_Z";
+      label = "ADAPTIVE_M";
       #binding-cells = <0>;
-      bindings = <&kp Z>, <&kp O>;
+      bindings = <&kp M>, <&kp L>;
       max-delay-ms = <250>;
-      antecedents = <E I U>;
+      antecedents = <C>;
+    };
+    ad_h: adaptive_h {
+      compatible = "zmk,behavior-antecedent-morph";
+      label = "ADAPTIVE_H";
+      #binding-cells = <0>;
+      bindings = <&kp H>, <&kp I>;
+      max-delay-ms = <250>;
+      antecedents = <K>;
+    };
+    ad_u: adaptive_u {
+      compatible = "zmk,behavior-antecedent-morph";
+      label = "ADAPTIVE_U";
+      #binding-cells = <0>;
+      bindings = <&kp U>, <&kp O>;
+      max-delay-ms = <250>;
+      antecedents = <Y>;
+    };
+    ad_d: adaptive_d {
+      compatible = "zmk,behavior-antecedent-morph";
+      label = "ADAPTIVE_D";
+      #binding-cells = <0>;
+      bindings = <&kp D>, <&kp I>;
+      max-delay-ms = <250>;
+      antecedents = <P>;
+    };
+    ad_n: adaptive_n {
+      compatible = "zmk,behavior-antecedent-morph";
+      label = "ADAPTIVE_N";
+      #binding-cells = <0>;
+      bindings = <&kp N>, <&kp U>;
+      max-delay-ms = <250>;
+      antecedents = <P>;
+    };
+    ad_x: adaptive_x {
+      compatible = "zmk,behavior-antecedent-morph";
+      label = "ADAPTIVE_X";
+      #binding-cells = <0>;
+      bindings = <&kp X>, <&kp W>;
+      max-delay-ms = <250>;
+      antecedents = <T>;
     };
     ad_j: adaptive_j {
       compatible = "zmk,behavior-antecedent-morph";
       label = "ADAPTIVE_J";
       #binding-cells = <0>;
-      bindings = <&kp J>, <&kp K>;
+      bindings = <&kp J>, <&kp U>;
       max-delay-ms = <250>;
-      antecedents = <E I U>;
+      antecedents = <K>;
     };
-    ad_oe: adaptive_oe {
+    ad_ue: adaptive_ue {
       compatible = "zmk,behavior-antecedent-morph";
-      label = "ADAPTIVE_OE";
+      label = "ADAPTIVE_UE";
       #binding-cells = <0>;
-      bindings = <&kp RA(P)>, <&kp I>;
+      bindings = <&kp RA(Y)>, <&kp P>;
       max-delay-ms = <250>;
-      antecedents = <E I U>;
+      antecedents = <U>;
     };
-    ad_ae: adaptive_ae {
+    ad_g: adaptive_g {
       compatible = "zmk,behavior-antecedent-morph";
-      label = "ADAPTIVE_AE";
+      label = "ADAPTIVE_G";
       #binding-cells = <0>;
-      bindings = <&kp RA(Q)>, <&kp P>;
+      bindings = <&kp G>, <&kp L>;
       max-delay-ms = <250>;
-      antecedents = <E I U>;
+      antecedents = <B>;
+    };
+  };
+};
+
+// Adaptive keys (slow, 1 sec) that implement additional dead keys.
+
+/ {
+  behaviors {
+    ad_o: adaptive_o { // implements the dead slash
+      compatible = "zmk,behavior-antecedent-morph";
+      label = "ADAPTIVE_O";
+      #binding-cells = <0>;
+      bindings = <&kp O>, <&kp RA(L)>;
+      max-delay-ms = <1000>;
+      antecedents = <D_SLASH>;
+    };
+    ad_a: adaptive_a { // implements the dead circle
+      compatible = "zmk,behavior-antecedent-morph";
+      label = "ADAPTIVE_A";
+      #binding-cells = <0>;
+      bindings = <&kp A>, <&kp RA(W)>;
+      max-delay-ms = <1000>;
+      antecedents = <D_CIRQ>;
     };
   };
 };
@@ -281,10 +422,10 @@
 
     default_layer { // #define L_DEF 0
       bindings = <
-    &none             &none            &ad_z        &kp   O             &kp P           &kp Y          &kp W            &kp C          &kp M         &kp V        &none          &none
-    &lyht L_FUN Q     &lyht L_NAV H    &moht LALT A &moht LCTRL E       &lyht L_NUM I   &moht LWIN U   &moht LWIN D     &lyht L_NUM T  &moht LCTRL N &moht LALT S &lyht L_NAV R  &lyht L_FUN X
-    &ltt L_DEF L_NUM  &ad_j            &ad_oe       &ad_ae              &lyht L_DEAD K  &kp RA(Y)      &kp B            &lyht L_DEAD G &kp L         &kp F        &shsz          &ltt L_DEF L_NUM
-                      &none            &kp ESC      &hold_shift LSHFT A &ht LS(TAB) TAB &none          &none            &kp RET        &kp SPACE     &shbs        &none
+    &none             &none            &kp Z         &ad_o               &kp P           &kp Y          &kp W            &kp C           &ad_m          &kp V        &none          &none
+    &lyht L_FUN Q     &lyhth L_NAV H   &mohta LALT A &moht LCTRL E       &lyht L_NUM I   &mohtu LWIN U  &mohtd LWIN D    &lyht L_NUM T   &mohtn LCTRL N &moht LALT S &lyht L_NAV R  &lyhtx L_FUN X
+    &ltt L_DEF L_NUM  &ad_j            &kp RA(P)     &kp RA(Q)           &lyht L_DEAD K  &ad_ue         &kp B            &lyhtg L_DEAD G &kp L          &kp F        &shsz          &ltt L_DEF L_NUM
+                      &none            &kp ESC       &hold_shift LSHFT A &ht LS(TAB) TAB &none          &none            &kp RET         &kp SPACE      &shbs        &none
         >;
     };
 
@@ -335,9 +476,9 @@
 
     dead_key_layer { // #define L_DEAD 6
       bindings = <
-    &trans            &trans           &kp GRAVE    &trans              &trans          &trans         &trans           &trans         &trans        &trans       &trans        &trans
-    &kp CARET         &kp DQT          &kp APOS     &kp TILDE           &trans          &trans         &trans           &trans         &trans        &trans       &trans        &trans
-    &trans            &trans           &trans       &trans              &trans          &trans         &trans           &trans         &trans        &trans       &trans        &trans
+    &trans            &trans           &kp GRAVE    &kp RA(LBKT)        &kp RA(RBKT)    &kp RA(N1)     &trans           &trans         &trans        &trans       &trans        &trans
+    &kp CARET         &kp DQT          &kp APOS     &kp RA(LBRC)        &kp RA(RBRC)    &kp RA(SLASH)  &trans           &trans         &trans        &trans       &trans        &trans
+    &trans            &kp D_CIRQ       &kp TILDE    &trans              &trans          &trans         &trans           &trans         &trans        &trans       &kp D_SLASH   &trans
                       &trans           &trans       &trans              &trans          &trans         &trans           &trans         &trans        &trans       &trans
       >;
     };
