@@ -352,9 +352,17 @@
       compatible = "zmk,behavior-antecedent-morph";
       label = "ADAPTIVE_X";
       #binding-cells = <0>;
-      bindings = <&kp X>, <&kp W>;
+      bindings = <&kp X>, <&ad_x2>;
       max-delay-ms = <250>;
-      antecedents = <T>;
+      antecedents = <T N>;
+    };
+    ad_x2: adaptive_x2 {
+      compatible = "zmk,behavior-antecedent-morph";
+      label = "ADAPTIVE_X2";
+      #binding-cells = <0>;
+      bindings = <&kp W>, <&kp M>;
+      max-delay-ms = <250>;
+      antecedents = <N>;
     };
     ad_j: adaptive_j {
       compatible = "zmk,behavior-antecedent-morph";
