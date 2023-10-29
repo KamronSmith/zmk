@@ -12,6 +12,16 @@ from rows to columns and columns GPIO 16 and 10 (left) or GPIO 10 and 16 (right)
 
 The bluetooth name of all these breadboard tests is "Two By Two".
 
+### twobytwo4
+
+On the same two breadboards, this firmware tests the mouse emulation patch and assigns mouse functions to the keys.
+
+### twobytwo5
+
+On the same breadboard, we use a 4-way tactile switch in order to control the mouse emulation. On the right half, in
+addition to the 2x2 keyboard matrix, we add the 4-way switch with the common pin at GPIO 21 and the four directional
+pins connected to GPIO 16, 10, 9, 8.
+
 ### yackboard-v1
 
 This is the firmware of the Yackboard v1. Required patches:
@@ -28,8 +38,6 @@ It was patched into the current branch on 2023-10-25. This patch is required whe
 
 The custom retro-tap behavior patch of https://github.com/nickconway/zmk/tree/retro-tap-binding was added on
 2023-10-25. It is used only in the keymap of the yackboard.
-
-
 
 The following is its original `README.md` file.
 
