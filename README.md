@@ -12,9 +12,28 @@ from rows to columns and columns GPIO 16 and 10 (left) or GPIO 10 and 16 (right)
 
 The bluetooth name of all these breadboard tests is "Two By Two".
 
+### yackboard-v1
+
+This is the firmware of the Yackboard v1. Required patches:
+
+- mouse emulation
+- custom retro-tap behavior
+
 ### Patches
 
+This project was forked from the main ZMK repository (upstream) on 2023-10-25.
+
+The mouse emulation of https://github.com/ftc/zmk/tree/mouse-ftc was adapted to Zephyr 3.2 in https://github.com/urob/zmk/tree/mouse-3.2
+It was patched into the current branch on 2023-10-25. This patch is required whenever a pointing device is used.
+
+The custom retro-tap behavior patch of https://github.com/nickconway/zmk/tree/retro-tap-binding was added on
+2023-10-25. It is used only in the keymap of the yackboard.
+
+
+
 The following is its original `README.md` file.
+
+#
 
 [![Discord](https://img.shields.io/discord/719497620560543766)](https://zmk.dev/community/discord/invite)
 [![Build](https://github.com/zmkfirmware/zmk/workflows/Build/badge.svg)](https://github.com/zmkfirmware/zmk/actions)
