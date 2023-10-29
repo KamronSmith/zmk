@@ -1,6 +1,20 @@
 # Experimental Fork
 
-This is an experimental fork of the [ZMK Project](https://www.github.com/zmkfirmware/zmk). The following is its original `README.md` file.
+This is an experimental fork of the [ZMK Project](https://www.github.com/zmkfirmware/zmk).
+
+## Shields
+
+### twobytwo2
+
+This is an experimental setup on two breadboards, each run by a Nice!Nano v2 with a 3.7V Lipo battery connected to BAT
+and GND of the Nice!Nano, a button between GND and RST, and with a 2x2 diode matrix with rows GPIO 15 and 14, diodes
+from rows to columns and columns GPIO 16 and 10 (left) or GPIO 10 and 16 (right). The right half is the master.
+
+The bluetooth name of all these breadboard tests is "Two By Two".
+
+### Patches
+
+The following is its original `README.md` file.
 
 [![Discord](https://img.shields.io/discord/719497620560543766)](https://zmk.dev/community/discord/invite)
 [![Build](https://github.com/zmkfirmware/zmk/workflows/Build/badge.svg)](https://github.com/zmkfirmware/zmk/actions)
