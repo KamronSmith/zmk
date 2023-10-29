@@ -136,6 +136,18 @@
       quick-tap-ms = <250>;
       bindings = <&mo>, <&kp>;
     };
+    lyhtq: layer_hold_tapq { // the home row layer key for adaptive Q; note that instead of a key-press, this calls the macro for Qu and only in the retro-tap case a single Q
+      compatible = "zmk,behavior-hold-tap";
+      label = "LAYER_HOLD_TAPQ";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <400>;
+      retro-tap;
+      retro-tap-behavior = "KEY_PRESS"; // this requiree the custom retro-tap patch; note that the alternative behaviour is defined using control strings such as this
+      retro-tap-param1 = <Q>;
+      quick-tap-ms = <250>;
+      bindings = <&mo>, <&qu_mod>;
+    };
     lyhth: layer_hold_taph { // the home row layer key for adaptive H
       compatible = "zmk,behavior-hold-tap";
       label = "LAYER_HOLD_TAPH";
@@ -240,11 +252,6 @@
 
 // The diacritics on the navigation and punctuation layer are non-dead. This is implemented by sending a sequence of
 // first the diacritic and then a spcace.
-//
-// ???
-// Note that the degree ° and the slash / are non-dead by default, but I might want to program a dead version, too.
-// Add a new hold-tap layer switch for a new layer L_DEAD that produces the dead versions of the following keys.
-// Also add the symbols of the US international layout to that layer.
 
 / {
   macros {
@@ -300,6 +307,71 @@
       flavor = "balanced";
       tapping-term-ms = <200>;
       bindings = <&nd_caret>, <&kp>;
+    };
+  };
+};
+
+// The following macros produce pairs of brackets and place the cursor in between.
+
+/ {
+  macros {
+    br_par: pair_parentheses {
+      label = "PAIR_PARENTHESES";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_tap &kp LPAR &kp RPAR &kp LEFT>;
+    };
+    br_bkt: pair_brackets {
+      label = "PAIR_BRACKETS";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_tap &kp LBKT &kp RBKT &kp LEFT>;
+    };
+    br_brc: pair_braces {
+      label = "PAIR_BRACES";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_tap &kp LBRC &kp RBRC &kp LEFT>;
+    };
+    br_ang: pair_angular {
+      label = "PAIR_ANGULAR";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_tap &kp LS(COMMA) &kp LS(DOT) &kp LEFT>;
+    };
+  };
+  behaviors {
+    ht_par: hold_tap_parentheses {
+      compatible = "zmk,behavior-hold-tap";
+      label = "HOLD_TAP_PARENTHESES";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <200>;
+      bindings = <&br_par>, <&kp>;
+    };
+    ht_bkt: hold_tap_brackets {
+      compatible = "zmk,behavior-hold-tap";
+      label = "HOLD_TAP_BRACKETS";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <200>;
+      bindings = <&br_bkt>, <&kp>;
+    };
+    ht_brc: hold_tap_braces {
+      compatible = "zmk,behavior-hold-tap";
+      label = "HOLD_TAP_BRACES";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <200>;
+      bindings = <&br_brc>, <&kp>;
+    };
+    ht_ang: hold_tap_angular {
+      compatible = "zmk,behavior-hold-tap";
+      label = "HOLD_TAP_ANGULAR";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <200>;
+      bindings = <&br_ang>, <&kp>;
     };
   };
 };
@@ -414,6 +486,35 @@
   };
 };
 
+// Special treatment of Q
+
+/ {
+  macros {
+    qu_low: qu_lowercase {
+      label = "QU_LOWERCASE";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_tap &kp Q &kp U>;
+    };
+    qu_upp: qu_uppercase {
+      label = "QU_UPPERCASE";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      wait-ms = <200>;
+      bindings = <&macro_tap &kp LS(Q) &kp U>;
+    };
+  };
+  behaviors {
+    qu_mod: qu_modifier {
+      compatible = "zmk,behavior-mod-morph";
+      label = "QU_MODIFIER";
+      #binding-cells = <0>;
+      bindings = <&qu_low>, <&qu_upp>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
+    };
+  };
+};
+
 / {
   keymap {
     compatible = "zmk,keymap";
@@ -431,7 +532,7 @@
     default_layer { // #define L_DEF 0
       bindings = <
     &none             &none            &kp Z         &ad_o               &kp P           &kp Y          &kp W            &kp C           &ad_m          &kp V        &none          &none
-    &lyht L_FUN Q     &lyhth L_NAV H   &mohta LALT A &moht LCTRL E       &lyht L_NUM I   &mohtu LWIN U  &mohtd LWIN D    &lyht L_NUM T   &mohtn LCTRL N &moht LALT S &lyht L_NAV R  &lyhtx L_FUN X
+    &lyhtq L_FUN Q    &lyhth L_NAV H   &mohta LALT A &moht LCTRL E       &lyht L_NUM I   &mohtu LWIN U  &mohtd LWIN D    &lyht L_NUM T   &mohtn LCTRL N &moht LALT S &lyht L_NAV R  &lyhtx L_FUN X
     &ltt L_DEF L_NUM  &ad_j            &kp RA(P)     &kp RA(Q)           &lyht L_DEAD K  &ad_ue         &kp B            &lyhtg L_DEAD G &kp L          &kp F        &shsz          &ltt L_DEF L_NUM
                       &none            &kp ESC       &hold_shift LSHFT A &ht LS(TAB) TAB &none          &none            &kp RET         &kp SPACE      &shbs        &none
         >;
@@ -439,7 +540,7 @@
 
     navigation_layer { // #define L_NAV 1
       bindings = <
-    &none             &none            &nd_grave    &kp LS(COMMA)       &kp LS(DOT)     &kp EXCL       &mkp LCLK        &kp HOME       &kp UP        &kp PG_UP    &none          &none
+    &none             &none            &nd_grave    &ht_ang A LS(COMMA) &kp LS(DOT)     &kp EXCL       &mkp LCLK        &kp HOME       &kp UP        &kp PG_UP    &none          &none
     &nd_caret         &nd_dqt          &nd_apos     &kp COMMA           &kp DOT         &kp QMARK      &mkp MCLK        &kp LEFT       &kp SLCK      &kp RIGHT    &move_beg      &kp INS
     &ltt L_DEF L_FUN  &kp RA(LS(SEMI)) &kp RA(N9)   &kp SEMI            &kp COLON       &kp UNDER      &mkp RCLK        &kp END        &kp DOWN      &kp PG_DN    &move_end      &ltt L_DEF L_FUN
                       &trans           &trans       &trans              &trans          &trans         &trans           &trans         &trans        &trans       &none
@@ -448,8 +549,8 @@
 
     numbers_layer { // #define L_NUM 2
       bindings = <
-    &none             &none            &kp RA(N5)   &kp LBRC            &kp RBRC        &kp PIPE       &ht_apos A MINUS &kp N7         &kp N8        &kp N9       &none         &none
-    &nd_tilde         &kp LBKT         &kp RBKT     &kp LPAR            &kp RPAR        &kp BSLH       &kp PLUS         &kp N4         &kp N5        &kp N6       &ht COMMA DOT &kp EQUAL
+    &none             &none            &kp RA(N5)   &ht_brc A LBRC      &kp RBRC        &kp PIPE       &ht_apos A MINUS &kp N7         &kp N8        &kp N9       &none         &none
+    &nd_tilde         &ht_bkt A LBKT   &kp RBKT     &ht_par A LPAR      &kp RPAR        &kp BSLH       &kp PLUS         &kp N4         &kp N5        &kp N6       &ht COMMA DOT &kp EQUAL
     &ltt L_DEF L_NAV  &kp AT           &kp HASH     &kp DLLR            &kp PRCNT       &kp AMPS       &ht_caret A STAR &kp N1         &kp N2        &kp N3       &kp SLASH     &ltt L_DEF L_NAV
                       &trans           &trans       &trans              &trans          &trans         &trans           &trans         &kp N0        &trans       &none
       >;
