@@ -1,3 +1,5 @@
+// This is the key map of the Yackboard v1 with the improved OPY layout.
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/mouse.h>   // This is required when using &mkp mouse key events.
@@ -11,8 +13,6 @@
 // and modify the subsequent o to an ø.
 #define D_SLASH 0x070100
 #define D_CIRQ  0x070101
-
-// This is the key map of the Yackboard v1 with the improved OPY layout.
 
 // The dedicated shift key has got the following behaviour:
 // - if held down, it is the shift modifier
@@ -72,7 +72,11 @@
 };
 
 // There are two variants of home row hold-tap modifiers: mod-tap for [Ctrl], [Alt] and [Win] and layer-tap for the keys
-// that momentarily activate the number, navigation and function layers.
+// that momentarily activate the number, navigation, function and dead key layers.
+//
+// If the tap binding is a key press, the key code is taken from the second parameter of the behavior. If the tap binding
+// is another behavior, however, for example if the tap binding is an adaptive key, this must be defined as a special
+// behavior.
 
 / {
   behaviors {
@@ -81,7 +85,7 @@
       label = "MODIFIER_HOLD_TAP";
       #binding-cells = <2>;
       flavor = "balanced";
-      tapping-term-ms = <400>;
+      tapping-term-ms = <250>;
       retro-tap;
       quick-tap-ms = <200>;
       bindings = <&kp>, <&kp>;
@@ -91,7 +95,7 @@
       label = "MODIFIER_HOLD_TAPA";
       #binding-cells = <2>;
       flavor = "balanced";
-      tapping-term-ms = <400>;
+      tapping-term-ms = <250>;
       retro-tap;
       quick-tap-ms = <200>;
       bindings = <&kp>, <&ad_a>;
@@ -101,7 +105,7 @@
       label = "MODIFIER_HOLD_TAPU";
       #binding-cells = <2>;
       flavor = "balanced";
-      tapping-term-ms = <400>;
+      tapping-term-ms = <250>;
       retro-tap;
       quick-tap-ms = <200>;
       bindings = <&kp>, <&ad_u>;
@@ -111,7 +115,7 @@
       label = "MODIFIER_HOLD_TAPD";
       #binding-cells = <2>;
       flavor = "balanced";
-      tapping-term-ms = <400>;
+      tapping-term-ms = <250>;
       retro-tap;
       quick-tap-ms = <200>;
       bindings = <&kp>, <&ad_d>;
@@ -121,7 +125,7 @@
       label = "MODIFIER_HOLD_TAPN";
       #binding-cells = <2>;
       flavor = "balanced";
-      tapping-term-ms = <400>;
+      tapping-term-ms = <250>;
       retro-tap;
       quick-tap-ms = <200>;
       bindings = <&kp>, <&ad_n>;
@@ -131,7 +135,7 @@
       label = "LAYER_HOLD_TAP";
       #binding-cells = <2>;
       flavor = "balanced";
-      tapping-term-ms = <400>;
+      tapping-term-ms = <250>;
       retro-tap;
       quick-tap-ms = <250>;
       bindings = <&mo>, <&kp>;
@@ -141,7 +145,7 @@
       label = "LAYER_HOLD_TAPQ";
       #binding-cells = <2>;
       flavor = "balanced";
-      tapping-term-ms = <400>;
+      tapping-term-ms = <250>;
       retro-tap;
       retro-tap-behavior = "KEY_PRESS"; // this requiree the custom retro-tap patch; note that the alternative behaviour is defined using control strings such as this
       retro-tap-param1 = <Q>;
@@ -153,7 +157,7 @@
       label = "LAYER_HOLD_TAPH";
       #binding-cells = <2>;
       flavor = "balanced";
-      tapping-term-ms = <400>;
+      tapping-term-ms = <250>;
       retro-tap;
       quick-tap-ms = <250>;
       bindings = <&mo>, <&ad_h>;
@@ -163,7 +167,7 @@
       label = "LAYER_HOLD_TAPX";
       #binding-cells = <2>;
       flavor = "balanced";
-      tapping-term-ms = <400>;
+      tapping-term-ms = <250>;
       retro-tap;
       quick-tap-ms = <250>;
       bindings = <&mo>, <&ad_x>;
@@ -173,7 +177,7 @@
       label = "LAYER_HOLD_TAPG";
       #binding-cells = <2>;
       flavor = "balanced";
-      tapping-term-ms = <400>;
+      tapping-term-ms = <250>;
       retro-tap;
       quick-tap-ms = <250>;
       bindings = <&mo>, <&ad_g>;
@@ -500,7 +504,7 @@
       label = "QU_UPPERCASE";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
-      wait-ms = <200>;
+      wait-ms = <150>;
       bindings = <&macro_tap &kp LS(Q) &kp U>;
     };
   };
