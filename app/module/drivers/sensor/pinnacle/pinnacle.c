@@ -6,7 +6,8 @@
 
 #include "pinnacle.h"
 
-LOG_MODULE_REGISTER(pinnacle, CONFIG_SENSOR_LOG_LEVEL);
+//LOG_MODULE_REGISTER(pinnacle, CONFIG_SENSOR_LOG_LEVEL);
+LOG_MODULE_REGISTER(pinnacle, CONFIG_ZMK_LOG_LEVEL);
 
 static int pinnacle_seq_read(const struct device *dev, const uint8_t addr, uint8_t *buf,
                              const uint8_t len) {
