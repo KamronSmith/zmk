@@ -388,7 +388,8 @@
       compatible = "zmk,behavior-antecedent-morph";
       label = "ADAPTIVE_M";
       #binding-cells = <0>;
-      bindings = <&kp M>, <&kp L>;
+      defaults = <&kp M>;
+      bindings = <&kp L>;
       max-delay-ms = <250>;
       antecedents = <C>;
     };
@@ -396,7 +397,8 @@
       compatible = "zmk,behavior-antecedent-morph";
       label = "ADAPTIVE_H";
       #binding-cells = <0>;
-      bindings = <&kp H>, <&kp I>;
+      defaults = <&kp H>;
+      bindings = <&kp I>;
       max-delay-ms = <250>;
       antecedents = <K>;
     };
@@ -404,7 +406,8 @@
       compatible = "zmk,behavior-antecedent-morph";
       label = "ADAPTIVE_U";
       #binding-cells = <0>;
-      bindings = <&kp U>, <&kp O>;
+      defaults = <&kp U>;
+      bindings = <&kp O>;
       max-delay-ms = <250>;
       antecedents = <Y>;
     };
@@ -412,7 +415,8 @@
       compatible = "zmk,behavior-antecedent-morph";
       label = "ADAPTIVE_D";
       #binding-cells = <0>;
-      bindings = <&kp D>, <&kp I>;
+      defaults = <&kp D>;
+      bindings = <&kp I>;
       max-delay-ms = <250>;
       antecedents = <P>;
     };
@@ -420,7 +424,8 @@
       compatible = "zmk,behavior-antecedent-morph";
       label = "ADAPTIVE_N";
       #binding-cells = <0>;
-      bindings = <&kp N>, <&kp U>;
+      defaults = <&kp N>;
+      bindings = <&kp U>;
       max-delay-ms = <250>;
       antecedents = <P>;
     };
@@ -428,23 +433,17 @@
       compatible = "zmk,behavior-antecedent-morph";
       label = "ADAPTIVE_X";
       #binding-cells = <0>;
-      bindings = <&kp X>, <&ad_x2>;
-      max-delay-ms = <250>;
-      antecedents = <T N>;
-    };
-    ad_x2: adaptive_x2 {
-      compatible = "zmk,behavior-antecedent-morph";
-      label = "ADAPTIVE_X2";
-      #binding-cells = <0>;
+      defaults = <&kp X>;
       bindings = <&kp W>, <&kp M>;
       max-delay-ms = <250>;
-      antecedents = <N>;
+      antecedents = <T N>;
     };
     ad_j: adaptive_j {
       compatible = "zmk,behavior-antecedent-morph";
       label = "ADAPTIVE_J";
       #binding-cells = <0>;
-      bindings = <&kp J>, <&kp U>;
+      defaults = <&kp J>;
+      bindings = <&kp U>;
       max-delay-ms = <250>;
       antecedents = <K>;
     };
@@ -452,7 +451,8 @@
       compatible = "zmk,behavior-antecedent-morph";
       label = "ADAPTIVE_UE";
       #binding-cells = <0>;
-      bindings = <&kp RA(Y)>, <&kp P>;
+      defaults = <&kp RA(Y)>;
+      bindings = <&kp P>;
       max-delay-ms = <250>;
       antecedents = <U>;
     };
@@ -460,7 +460,8 @@
       compatible = "zmk,behavior-antecedent-morph";
       label = "ADAPTIVE_G";
       #binding-cells = <0>;
-      bindings = <&kp G>, <&kp L>;
+      defaults = <&kp G>;
+      bindings = <&kp L>;
       max-delay-ms = <250>;
       antecedents = <B>;
     };
@@ -475,7 +476,8 @@
       compatible = "zmk,behavior-antecedent-morph";
       label = "ADAPTIVE_O";
       #binding-cells = <0>;
-      bindings = <&kp O>, <&kp RA(L)>;
+      defaults = <&kp O>;
+      bindings = <&kp RA(L)>;
       max-delay-ms = <1000>;
       antecedents = <D_SLASH>;
     };
@@ -483,7 +485,8 @@
       compatible = "zmk,behavior-antecedent-morph";
       label = "ADAPTIVE_A";
       #binding-cells = <0>;
-      bindings = <&kp A>, <&kp RA(W)>;
+      defaults = <&kp A>;
+      bindings = <&kp RA(W)>;
       max-delay-ms = <1000>;
       antecedents = <D_CIRQ>;
     };
