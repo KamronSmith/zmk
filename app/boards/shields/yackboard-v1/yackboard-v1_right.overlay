@@ -1,4 +1,4 @@
-#include <dt-bindings/zmk/trackball_pim447.h>
+//#include <dt-bindings/zmk/trackball_pim447.h>
 #include "yackboard-v1.dtsi"
 
 &default_transform { // The matrix transform for this board is 5 columns over because the left half is 5 columns wide
