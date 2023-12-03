@@ -20,6 +20,10 @@
 // - if tapped once, it is a one-shot shift, i.e. applies shift to the subsequent key
 // - if tapped twice, it is my flavour of caps word, i.e. it capitalizes the subsequent word (including the underscore)
 //
+// ??? note that reverting to the default layer does not work because a retro-tap parameter prevents the hold behavior entirely.
+// I have therefore removed the retro-tap behavior <&to L_DEF> from the behavior-hold-tap
+// Better: patch that behavior so that just holding the key first issues the hold and then the retro-tap
+//
 // This is implemented as follows:
 // - first, there is a hold-tap with hold the LSHFT and tap the following sticky key; it has a custom retro-tap behaviour which resets the layer to default
 // - the sticky key produces a one-shot version of a macro that applies the following two modifiers
@@ -56,10 +60,7 @@
       label = "HOLD_TAP_SHIFT";
       #binding-cells = <2>;
       flavor = "balanced";
-      retro-tap;
-      retro-tap-behavior = "TO_LAYER"; // this requiree the custom retro-tap patch; note that the alternative behaviour is defined using control strings such as this
-      retro-tap-param1 = <L_DEF>;
-      tapping-term-ms = <200>;
+      tapping-term-ms = <300>;
       bindings = <&kp>, <&sticky_shift>;
     };
     mycaps: behavior_my_caps_word { // my version of Caps Word includes the underscore as a letter.
@@ -70,6 +71,11 @@
     };
   };
 };
+
+//      retro-tap;
+//      retro-tap-behavior = "TO_LAYER"; // this requiree the custom retro-tap patch; note that the alternative behaviour is defined using control strings such as this
+//      retro-tap-param1 = <L_DEF>;
+
 
 // There are two variants of home row hold-tap modifiers: mod-tap for [Ctrl], [Alt] and [Win] and layer-tap for the keys
 // that momentarily activate the number, navigation, function and dead key layers.
@@ -86,7 +92,6 @@
       #binding-cells = <2>;
       flavor = "balanced";
       tapping-term-ms = <250>;
-      retro-tap;
       quick-tap-ms = <200>;
       bindings = <&kp>, <&kp>;
     };
@@ -96,7 +101,6 @@
       #binding-cells = <2>;
       flavor = "balanced";
       tapping-term-ms = <250>;
-      retro-tap;
       quick-tap-ms = <200>;
       bindings = <&kp>, <&ad_a>;
     };
@@ -106,7 +110,6 @@
       #binding-cells = <2>;
       flavor = "balanced";
       tapping-term-ms = <250>;
-      retro-tap;
       quick-tap-ms = <200>;
       bindings = <&kp>, <&ad_u>;
     };
@@ -116,7 +119,6 @@
       #binding-cells = <2>;
       flavor = "balanced";
       tapping-term-ms = <250>;
-      retro-tap;
       quick-tap-ms = <200>;
       bindings = <&kp>, <&ad_d>;
     };
@@ -126,7 +128,6 @@
       #binding-cells = <2>;
       flavor = "balanced";
       tapping-term-ms = <250>;
-      retro-tap;
       quick-tap-ms = <200>;
       bindings = <&kp>, <&ad_n>;
     };
@@ -136,7 +137,6 @@
       #binding-cells = <2>;
       flavor = "balanced";
       tapping-term-ms = <250>;
-      retro-tap;
       quick-tap-ms = <250>;
       bindings = <&mo>, <&kp>;
     };
@@ -158,7 +158,6 @@
       #binding-cells = <2>;
       flavor = "balanced";
       tapping-term-ms = <250>;
-      retro-tap;
       quick-tap-ms = <250>;
       bindings = <&mo>, <&ad_h>;
     };
@@ -168,7 +167,6 @@
       #binding-cells = <2>;
       flavor = "balanced";
       tapping-term-ms = <250>;
-      retro-tap;
       quick-tap-ms = <250>;
       bindings = <&mo>, <&ad_x>;
     };
@@ -178,7 +176,6 @@
       #binding-cells = <2>;
       flavor = "balanced";
       tapping-term-ms = <250>;
-      retro-tap;
       quick-tap-ms = <250>;
       bindings = <&mo>, <&ad_g>;
     };
