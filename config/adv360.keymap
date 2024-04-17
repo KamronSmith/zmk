@@ -89,7 +89,17 @@
             require-prior-idle-ms = <175>;
             flavor = "balanced";
         };
-    };
+
+	     ad_magic: adaptive_magic {
+			compatible = "zmk,behavior-antecedent-morph";
+			label = "ADAPTIVE_MAGIC";
+            #binding-cells = <0>;
+                        defaults = <&none>
+		    bindings = <&kp K>;
+                        antecedents = <S>;
+			            max-delay-ms = <250>;
+	     };
+	};
 
     macros {
         pass: pass {
