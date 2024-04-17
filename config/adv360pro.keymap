@@ -5,6 +5,19 @@
 #include <dt-bindings/zmk/backlight.h>
 
 / {
+
+	behaviors {
+	ad_magic: adaptive_magic {
+			compatible = "zmk,behavior-antecedent-morph";
+			label = "ADAPTIVE_MAGIC";
+            #binding-cells = <0>;
+                        defaults = <&none>
+		    bindings = <&kp K>;
+                        antecedents = <S>;
+			            max-delay-ms = <250>;
+	     }
+	}
+    
     keymap {
         compatible = "zmk,keymap";
 
