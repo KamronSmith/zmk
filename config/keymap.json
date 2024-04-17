@@ -1,0 +1,31 @@
+{
+  "keyboard": "adv360",
+  "keymap": "default",
+  "layout": "LAYOUT",
+  "layer_names": [
+    "base",
+    "extend",
+    "SYMBOL"
+  ],
+  "layers": [
+    [
+         "&none", "&kp N1", "&kp N2", "&kp N3", "&kp N4", "&kp N5",                 "&none",                                                                    "&mo 3",  "&kp N6", "&kp N7",    "&kp N8",       "&kp N9",   "&kp N0",      "&none",
+         "&none",  "&kp V",  "&kp M",  "&kp L",  "&kp C",  "&kp P",                 "&none",                                                                    "&none",   "&kp X",  "&kp F",     "&kp O",        "&kp U",    "&kp J",   "&kp CAPS",
+       "&kp ESC",  "&kp S",  "&kp T",  "&kp R",  "&kp D",  "&kp Y",                 "&none",      "&none",  "&none",                      "&none",  "&none",    "&none", "&kp DOT",  "&kp N",     "&kp E",        "&kp A",    "&kp I", "&caps_word",
+         "&none",  "&kp Z",  "&kp K",  "&kp Q",  "&kp G",  "&kp W",                                         "&none",                      "&none",                         "&kp B",  "&kp H", "&kp COMMA", "&kp QUESTION", "&kp EXCL",      "&none",
+         "&none",  "&none",  "&none",  "&none",  "&none",                     "&lt 1 SPACE", "&kp LSHIFT",  "&none",                      "&none",  "&mo 2", "&kp BSPC",             "&none",     "&none",        "&none",    "&none",      "&none"
+    ], [
+       "&bootloader",        "&none",         "&none",      "&none",     "&none",  "&none",           "&trans",                                                                  "&none",          "&none",     "&none",     "&none",     "&none",  "&none", "&bootloader",
+             "&none",        "&none",         "&none",      "&none",     "&none",  "&none",            "&none",                                                                  "&none",       "&kp HOME", "&kp PG_DN", "&kp PG_UP",   "&kp END",  "&none",       "&none",
+             "&none", "&kp LEFT_ALT", "&kp LEFT_META", "&kp LSHIFT", "&kp LCTRL",  "&none",            "&none",  "&none",  "&none",                      "&none",   "&none",     "&none", "&kp LEFT_ARROW",  "&kp DOWN",    "&kp UP", "&kp RIGHT",  "&none",       "&none",
+             "&none",        "&none",         "&none",      "&none",     "&none",  "&none",                                "&none",                      "&none",                                  "&none",     "&none",     "&none",     "&none",  "&none",       "&none",
+             "&none",        "&none",         "&none",      "&none",     "&none",                      "&none",  "&none",  "&none",                      "&none", "&kp TAB", "&kp ENTER",                       "&none",     "&none",     "&none",  "&none",       "&none"
+    ], [
+       "&trans",         "&trans",    "&trans",     "&trans",       "&trans",          "&trans",           "&trans",                                                             "&trans", "&trans",               "&trans",                "&trans", "&trans", "&trans", "&trans",
+       "&trans",         "&kp AT",     "&none",      "&none", "&kp ASTERISK",           "&none",           "&trans",                                                             "&trans",  "&none",       "&kp LEFT_BRACE",       "&kp RIGHT_BRACE",  "&none",  "&none", "&trans",
+       "&trans", "&kp UNDERSCORE", "&kp COLON",  "&kp SLASH",    "&kp MINUS",        "&kp PIPE",           "&trans", "&trans", "&trans",                     "&trans", "&trans", "&trans",  "&none", "&kp LEFT_PARENTHESIS", "&kp RIGHT_PARENTHESIS",  "&none",  "&none", "&trans",
+       "&trans",          "&none",     "&none", "&kp DOLLAR",     "&kp PLUS", "&kp EXCLAMATION",                               "&trans",                     "&trans",                      "&none",     "&kp LEFT_BRACKET",     "&kp RIGHT_BRACKET",  "&none",  "&none", "&trans",
+       "&trans",         "&trans",    "&trans",     "&trans",       "&trans",                              "&trans", "&trans", "&trans",                     "&trans", "&trans", "&trans",                         "&trans",                "&trans", "&trans", "&trans", "&trans"
+    ]
+  ]
+}
