@@ -90,16 +90,16 @@
             flavor = "balanced";
         };
 
-	     ad_magic: adaptive_magic {
-			compatible = "zmk,behavior-antecedent-morph";
-			label = "ADAPTIVE_MAGIC";
+        ad_magic: adaptive_magic {
+            compatible = "zmk,behavior-antecedent-morph";
+            label = "ADAPTIVE_MAGIC";
             #binding-cells = <0>;
-                        defaults = <&none>
-		    bindings = <&kp K>;
-                        antecedents = <S>;
-			            max-delay-ms = <250>;
-	     };
-	};
+            defaults = <&none>;
+            bindings = <&kp K>;
+            antecedents = <S>;
+            max-delay-ms = <250>;
+        };
+    };
 
     macros {
         pass: pass {
@@ -165,7 +165,7 @@
 &none     &kp V            &kp M              &kp L             &kp C         &kp P   &kp LS(LA(LC(LG(C))))                                                                         &kp LS(LG(LA(LC(E))))        &kp B       &kp F         &kp O             &kp U               &kp Q             &none
 &Nextsen  &hml LEFT_ALT S  &hml LEFT_SHIFT T  &hml LEFT_META R  &hml LCTRL D  &kp Y   &kp LS(LA(LC(LG(D))))  &kp LS(LA(LC(LG(A))))  &none      &out OUT_TOG  &kp LS(LA(LC(LG(B))))  &kp LS(LC(LG(LA(F))))        &kp PERIOD  &hmr RCTRL N  &hmr RIGHT_GUI E  &hmr RIGHT_SHIFT A  &hmr RIGHT_ALT I  &caps_word
 &none     &kp Z            &kp K              &kp J             &layer 2 G    &kp W                                                 &none      &bl BL_TOG                                                        &kp X       &layer 2 H    &kp COMMA         &Exclm              &kp SINGLE_QUOTE  &none
-&kp F5    &kp F4           &kp F3             &kp F2            &kp F1                &lt 1 SPACE            &none                  &none      &none         &key_repeat            &space LEFT_SHIFT BACKSPACE              &kp F6        &kp F7            &kp F8              &kp F9            &kp F10
+&kp F5    &kp F4           &kp F3             &kp F2            &kp F1                &lt 1 SPACE            &ad_magic              &none      &none         &key_repeat            &space LEFT_SHIFT BACKSPACE              &kp F6        &kp F7            &kp F8              &kp F9            &kp F10
             >;
         };
 
