@@ -15,8 +15,8 @@
 		    bindings = <&kp K>;
                         antecedents = <S>;
 			            max-delay-ms = <250>;
-	     }
-	}
+	     };
+	};
     
     keymap {
         compatible = "zmk,keymap";
